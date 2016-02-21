@@ -6,22 +6,35 @@
 <script src="jquery-2.2.0.js"></script>
 </head>
 <body>
-<input type="text" id="messageType" value="A"><input type="text" id="payload" value="Payload"><button id="send">Send</button>
+<input type="text" id="messageType" value="A">
+<input type="text" id="payload" value="Payload">
+<button id="send">Send</button>
+<br>
+<input type="text" id="count" value="1000">
+<button id="filtered">Filtered</button>
+<button id="separate">Separate</button>
 <br>
 <div id="result">
 </div>
 <script>
-$(document).ready(function() {
-	$('#send').click(function() {
-		$.post("rest/send",
-			{
-				type : $('#messageType').val(),
-				payload : $('#payload').val()
-			},
+addPost = function(id, url, data) {
+	$(id).click(function() {
+		$.post(url, data(), 
 			function(data, status) {
 				$("#result").html(status)
-			}
-		)
+		})
+	})
+}
+
+$(document).ready(function() {
+	addPost('#send', "rest/send/single", function() { 
+		return { type : $('#messageType').val(), payload : $('#payload').val() }
+	})
+	addPost('#filtered', "rest/send/filtered", function() {
+		return 	{ count : $('#count').val() }
+	})
+	addPost('#separate', 	"rest/send/separate", function() {
+		return { count : $('#count').val() }
 	})
 })
 </script>
