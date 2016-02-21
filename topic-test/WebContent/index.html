@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Send message</title>
+<script src="jquery-2.2.0.js"></script>
+</head>
+<body>
+<input type="text" id="messageType" value="A"><input type="text" id="payload" value="Payload"><button id="send">Send</button>
+<br>
+<div id="result">
+</div>
+<script>
+$(document).ready(function() {
+	$('#send').click(function() {
+		$.post("rest/send",
+			{
+				type : $('#messageType').val(),
+				payload : $('#payload').val()
+			},
+			function(data, status) {
+				$("#result").html(status)
+			}
+		)
+	})
+})
+</script>
+</body>
+</html>
