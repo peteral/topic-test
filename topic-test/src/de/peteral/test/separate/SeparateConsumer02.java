@@ -1,4 +1,4 @@
-package de.peteral.test.filtered;
+package de.peteral.test.separate;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,17 +13,16 @@ import javax.jms.MessageListener;
 import de.peteral.test.Collector;
 
 @MessageDriven(activationConfig = {
-		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/topic/Topic"),
-		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-		@ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "Type = 'java:/jms/topic/Topic05'"), })
-public class FilteredConsumer05 implements MessageListener {
+		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/topic/Topic02"),
+		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"), })
+public class SeparateConsumer02 implements MessageListener {
 	@EJB
 	private Collector collector;
 
 	@Override
 	public void onMessage(Message msg) {
 		try {
-			collector.track(msg.getStringProperty("Type"), msg.getIntProperty("MessageNo"));
+			collector.track("Topic02", msg.getIntProperty("MessageNo"));
 		} catch (JMSException e) {
 			Logger.getLogger("test").log(Level.SEVERE, "Failed processing message: ", e);
 		}

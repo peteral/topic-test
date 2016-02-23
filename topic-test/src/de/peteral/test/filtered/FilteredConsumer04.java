@@ -13,7 +13,7 @@ import javax.jms.MessageListener;
 import de.peteral.test.Collector;
 
 @MessageDriven(activationConfig = {
-		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/topic/MyTopic"),
+		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/topic/Topic"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
 		@ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "Type = 'java:/jms/topic/Topic04'"), })
 public class FilteredConsumer04 implements MessageListener {
